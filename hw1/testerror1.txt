@@ -1,0 +1,13 @@
+/**
+ * CS321 Assignment 1 (Fall 2014)
+ * testerror1.txt
+ * This file is built to test illegal characters.
+ * Student: Jong Seong Lee
+ * Date: 10/18/14
+ */
+
+// #@$#%#$^#^$%$%&$^&#^# These illegal characters are okay.
+
+"!$#@%%$^$^$#^&@$%&#$^@#$@#%#^$%^" These illegal characters are okay.
+
+#$@%#%^@#%#$^$%&#%^$%@#$@$%#%^ These illegal characters are not okay.

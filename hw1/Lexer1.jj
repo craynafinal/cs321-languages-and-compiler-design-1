@@ -1,0 +1,91 @@
+/**
+ * CS321 Assignment 1 (Fall 2014)
+ * miniJava Lexer1 (JavaCC Specification)
+ * Student: Jong Seong Lee
+ * Date: 10/18/14
+ */
+
+PARSER_BEGIN(Lexer1)
+import java.io.*;
+
+public class Lexer1 {
+
+	public static void main(String [] args) {
+		
+		try {
+			FileInputStream argStream = new FileInputStream(args[0]);
+			
+			Lexer1 lexer = new Lexer1(argStream);
+			Token token = lexer.getNextToken();
+			int tokenCount = 0;
+			
+			while(token.kind != 0) {
+				System.out.print("(" + token.beginLine + "," + token.beginColumn + ")\t");
+				
+				switch (token.kind) {
+				case ID:
+					System.out.println("ID(" + token.image + ")");
+					break;
+				
+				case INTLIT:
+					try {
+						System.out.println("INTLIT(" + Integer.parseInt(token.image) + ")");
+					} catch (NumberFormatException e) {
+						throw new TokenMgrError("\nInteger overflow: " + token.image, 0);
+					}
+					break;
+				case STRLIT:
+					System.out.println("STRLIT(" + token.image + ")");
+					break;
+				default:
+					System.out.println(token.image);
+				}
+				
+				tokenCount++;
+				token = lexer.getNextToken();
+			}
+			System.out.println("Total: " + tokenCount + " tokens");
+			argStream.close();
+		} catch (TokenMgrError e) {
+			System.err.println(e);	
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+	}
+}
+PARSER_END(Lexer1)
+
+// token definitions
+
+// white spaces
+SKIP: { " " | "\t" | "\n" | "\r" }
+// comments
+SKIP: {
+	<"//" (~["\r", "\n"])* ("\r" | "\n" | "\r\n")> 
+	| "/*" : ML_COMMENT
+}
+<ML_COMMENT> SKIP: { 
+	"*/" : DEFAULT
+} 
+<ML_COMMENT> MORE: { 
+	<~[]>
+}
+// keywords
+TOKEN: {
+	"class" | "extends" | "static" | "public" | "void" | "int" | "boolean" | "new" | "if" | "else" |
+	"while" | "return" | "main" | "true" | "false" | "String" | "System" | "out" | "println" | "this"
+}
+// identifiers and integer literals
+TOKEN: {
+	<#DIGIT:  ["0"-"9"]>
+	| <#LETTER: ["A"-"Z"]|["a"-"z"]>
+	| <ID:      <LETTER>(<LETTER>|<DIGIT>)*> 
+	| <INTLIT:  (<DIGIT>)+> 
+	| <STRLIT:  "\"" ("\\"("\""|"n"|"r") | ~["\"","\r","\n"])* "\"">
+}
+
+// operators
+TOKEN: {
+	"+" | "-" | "*" | "/" | "&&" | "||" | "!" | "==" | "!=" | "<" | "<=" |
+	">" | ">=" | "=" | ";" | "," | "." | "(" | ")" | "[" | "]" | "{" | "}"
+}

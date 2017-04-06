@@ -1,0 +1,11 @@
+/**
+ * CS321 Assignment 1 (Fall 2014)
+ * testerror3.txt
+ * This file is built to test unterminated strings.
+ * Student: Jong Seong Lee
+ * Date: 10/18/14
+ */
+
+"This string is okay."
+
+"This string is not okay.

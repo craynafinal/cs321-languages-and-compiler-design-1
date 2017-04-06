@@ -1,0 +1,15 @@
+/**
+ * CS321 Assignment 1 (Fall 2014)
+ * testerror2.txt
+ * This file is built to test integer overflow.
+ * Student: Jong Seong Lee
+ * Date: 10/18/14
+ */
+ 
+1 This integer is fine.
+
+123456789 This integer is okay.
+
+-123456789 This integer is okay.
+
+1491348235749863562565 This integer is not okay.

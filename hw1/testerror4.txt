@@ -1,0 +1,13 @@
+/**
+ * CS321 Assignment 1 (Fall 2014)
+ * testerror4.txt
+ * This file is built to test unterminated comments.
+ * Student: Jong Seong Lee
+ * Date: 10/18/14
+ */
+ 
+// this comment is okay
+
+/* this comment is okay */
+
+/* this comment is not okay
